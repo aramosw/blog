@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Math Blog</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1><a href="index.html">My Math Blog</a></h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="posts/index.html">All posts</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Latest posts</h2>
+      <ul class="post-list">
+        <li>
+          <a class="post-link" href="posts/pythagoras.html">Understanding the Pythagorean Theorem</a>
+          <span class="post-date">2025-11-04</span>
+        </li>
+        <li>
+          <a class="post-link" href="posts/calculus-basics.html">Intro to Calculus: Limits and Derivatives</a>
+          <span class="post-date">2025-11-04</span>
+        </li>
+        <li>
+          <a class="post-link" href="posts/matrices.html">Matrix Multiplication Explained</a>
+          <span class="post-date">2025-11-04</span>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> My Math Blog</p>
+  </footer>
+
+  <script>
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

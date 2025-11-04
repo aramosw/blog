@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Matrix Multiplication Explained — My Math Blog</title>
+  <link rel="stylesheet" href="../style.css">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1><a href="../index.html">My Math Blog</a></h1>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="index.html">All posts</a>
+    </nav>
+  </header>
+
+  <main>
+    <a class="back" href="../index.html">← Back to blog</a>
+    <article class="article">
+      <h1>Matrix Multiplication Explained</h1>
+      <p class="meta">2025-11-04</p>
+
+      
+<p>Given matrices $A \in \mathbb{R}^{m\times n}$ and $B \in \mathbb{R}^{n\times p}$, their product $C=AB$ is the $m\times p$ matrix with entries</p>
+<p>$$ c_{ij} = \sum_{k=1}^{n} a_{ik} b_{kj}. $$</p>
+<p>Example:</p>
+<p>$$
+\begin{bmatrix}
+1 & 2 \\
+0 & -1
+\end{bmatrix}
+\begin{bmatrix}
+3 & 0 \\
+4 & 5
+\end{bmatrix}
+=
+\begin{bmatrix}
+11 & 10 \\
+-4 & -5
+\end{bmatrix}.
+$$</p>
+
+
+    </article>
+  </main>
+</body>
+</html>

@@ -1,0 +1,31 @@
+/* Minimal, clean styling */
+:root{
+  --bg:#0b1020; --card:#141a32; --text:#e9eef9; --muted:#9fb0d8; --accent:#7aa2f7;
+  --link:#7aa2f7;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header, .site-footer{
+  max-width:900px;margin:0 auto;padding:20px 16px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.site-header h1{font-size:22px;margin:0}
+.site-header nav a{margin-left:12px;opacity:.9}
+main{max-width:900px;margin:0 auto;padding:24px 16px}
+.post-list{list-style:none;padding-left:0}
+.post-list li{padding:10px 0;border-bottom:1px solid #222a4d}
+.post-link{font-weight:600}
+.post-date{float:right;color:var(--muted);font-size:14px}
+.article{background:var(--card);border-radius:16px;padding:18px;box-shadow:0 4px 16px rgba(0,0,0,.35)}
+.article h1{margin-top:0}
+.article .meta{color:var(--muted);font-size:14px;margin-top:-6px;margin-bottom:16px}
+.back{display:inline-block;margin-bottom:16px}
+code,kbd{background:#0f1530;border:1px solid #222a4d;border-radius:6px;padding:0 .3em}
