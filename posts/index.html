@@ -1,27 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>All Posts — My Math Blog</title>
-  <link rel="stylesheet" href="../style.css">
-</head>
-<body>
-  <header class="site-header">
-    <h1><a href="../index.html">My Math Blog</a></h1>
-    <nav>
-      <a href="../index.html">Home</a>
-      <a href="index.html" aria-current="page">All posts</a>
-    </nav>
-  </header>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>All Posts — Borrowed Thoughts</title>
+		<link rel="stylesheet" href="../style.css" />
+	</head>
+	<body>
+		<header class="site-header">
+			<h1><a href="../index.html">Borrowed Thoughts</a></h1>
+			<nav>
+				<a href="../index.html">Home</a>
+				<a href="index.html">All Posts</a>
+				<button id="theme-toggle" aria-label="Toggle theme">
+					<span class="sun">☀️</span>
+					<span class="moon">🌙</span>
+				</button>
+			</nav>
+		</header>
 
-  <main>
-    <h2>All posts</h2>
-    <ul class="post-list">
-      <li><a class="post-link" href="pythagoras.html">Understanding the Pythagorean Theorem</a></li>
-      <li><a class="post-link" href="calculus-basics.html">Intro to Calculus: Limits and Derivatives</a></li>
-      <li><a class="post-link" href="matrices.html">Matrix Multiplication Explained</a></li>
-    </ul>
-  </main>
-</body>
+		<main>
+			<h2>All Posts</h2>
+			<ul class="post-list">
+				<li>
+					<a class="post-link" href="pythagoras.html"
+						>Understanding the Pythagorean Theorem</a
+					>
+				</li>
+				<li>
+					<a class="post-link" href="calculus-basics.html"
+						>Intro to Calculus: Limits and Derivatives</a
+					>
+				</li>
+				<li>
+					<a class="post-link" href="matrices.html"
+						>Matrix Multiplication Explained</a
+					>
+				</li>
+			</ul>
+		</main>
+		<script>
+			const root = document.documentElement;
+			const toggleBtn = document.getElementById("theme-toggle");
+
+			if (localStorage.getItem("theme") === "dark") {
+				root.classList.add("dark");
+			}
+
+			toggleBtn.addEventListener("click", () => {
+				root.classList.toggle("dark");
+				localStorage.setItem(
+					"theme",
+					root.classList.contains("dark") ? "dark" : "light"
+				);
+			});
+		</script>
+	</body>
 </html>

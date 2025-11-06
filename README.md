@@ -1,19 +1,11 @@
-# My Math Blog (static template)
+# Borrowed Thoughts
 
-This is a minimal, static blog template that supports LaTeX via MathJax.
+This repository contains the source code for my personal website - a collection of thoughts, notes, and explorations related to **mathematical finance**, **quantitative investing**, **mathematics and statistics**, **data**, and **software engineering**, as well as whatever else happens to catch my interest.
 
-## How to use
-1. Open `index.html` in a browser to see the homepage.
-2. Edit the posts in `posts/`. Copy any post to make a new one and add a link to it in:
-   - the homepage `index.html`
-   - and optionally `posts/index.html`
-3. Publish by uploading this folder to GitHub and enabling Pages, or deploy to Netlify/Vercel.
+I’m not a front-end engineer, so the visuals are simple (lazy), but that’s intentional. The focus is on content rather than polish — sharing ideas, explanations, and observations that I find interesting or entertaining as I navigate the quantitative space.
 
-## Writing math
-- Inline math: `$e^{i\pi}+1=0$`
-- Display math: 
-  ```
-  $$
-  \int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}
-  $$
-  ```
+Everything here is static HTML, CSS, and JavaScript — no frameworks, no build tools, just a lightweight setup that renders LaTeX, code, and general ramblings in one place.
+
+---
+
+Thanks for visiting, and I hope you find something worth reading.

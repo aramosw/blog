@@ -1,47 +1,72 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Math Blog</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header class="site-header">
-    <h1><a href="index.html">My Math Blog</a></h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="posts/index.html">All posts</a>
-    </nav>
-  </header>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Borrowed Thoughts</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<header class="site-header">
+			<h1><a href="index.html">Borrowed Thoughts</a></h1>
+			<nav>
+				<a href="index.html">Home</a>
+				<a href="posts/index.html">All Posts</a>
+				<button id="theme-toggle" aria-label="Toggle theme">
+					<span class="sun">☀️</span>
+					<span class="moon">🌙</span>
+				</button>
+			</nav>
+		</header>
 
-  <main>
-    <section>
-      <h2>Latest posts</h2>
-      <ul class="post-list">
-        <li>
-          <a class="post-link" href="posts/pythagoras.html">Understanding the Pythagorean Theorem</a>
-          <span class="post-date">2025-11-04</span>
-        </li>
-        <li>
-          <a class="post-link" href="posts/calculus-basics.html">Intro to Calculus: Limits and Derivatives</a>
-          <span class="post-date">2025-11-04</span>
-        </li>
-        <li>
-          <a class="post-link" href="posts/matrices.html">Matrix Multiplication Explained</a>
-          <span class="post-date">2025-11-04</span>
-        </li>
-      </ul>
-    </section>
-  </main>
+		<main>
+			<section>
+				<h2>Latest Posts</h2>
+				<ul class="post-list">
+					<li>
+						<a class="post-link" href="posts/pythagoras.html"
+							>Understanding the Pythagorean Theorem</a
+						>
+						<span class="post-date">2025-11-04</span>
+					</li>
+					<li>
+						<a class="post-link" href="posts/calculus-basics.html"
+							>Intro to Calculus: Limits and Derivatives</a
+						>
+						<span class="post-date">2025-11-04</span>
+					</li>
+					<li>
+						<a class="post-link" href="posts/matrices.html"
+							>Matrix Multiplication Explained</a
+						>
+						<span class="post-date">2025-11-04</span>
+					</li>
+				</ul>
+			</section>
+		</main>
 
-  <footer class="site-footer">
-    <p>© <span id="year"></span> My Math Blog</p>
-  </footer>
+		<footer class="site-footer">
+			<p>
+				© <span id="year"></span> Borrowed Thoughts. All rights
+				reserved.
+			</p>
+		</footer>
 
-  <script>
-    // Set current year
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-</body>
+		<script>
+			const root = document.documentElement;
+			const toggleBtn = document.getElementById("theme-toggle");
+
+			if (localStorage.getItem("theme") === "dark") {
+				root.classList.add("dark");
+			}
+
+			toggleBtn.addEventListener("click", () => {
+				root.classList.toggle("dark");
+				localStorage.setItem(
+					"theme",
+					root.classList.contains("dark") ? "dark" : "light"
+				);
+			});
+		</script>
+	</body>
 </html>
