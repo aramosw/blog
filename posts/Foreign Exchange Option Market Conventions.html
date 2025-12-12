@@ -278,7 +278,7 @@
 					The key part of construction is to build a curve such that
 					it matches the market quotes. The FX market uses three
 					volatility quotes for a given delta (typically 0.25 and
-					0.10).
+					0.10). Simply, we aim to build a curve function $\sigma:A\to B$ that maps strikes to implied volatility such that $\sigma(K_{\text{ATM}})=\sigma_{\text{ATM}}$, $\sigma(K_{25-\text{RR}})=\sigma_{25-\text{RR}}$ and $\sigma(K_{25-\text{BF}})=\sigma_{25-\text{BF}}$.
 				</p>
 				<ul>
 					<li>ATM volatility, $\sigma_{\text{ATM}}$</li>
@@ -297,6 +297,16 @@
 						currency pair.
 					</li>
 				</ul>
+				<p>
+					Risk reversals are used to measure the skewness of the smile, the extra volatility added to the 0.25$\delta$ put volatility compared to the 0.25$\delta$ call volatility.
+					Call flies are used to measure the curvature of the smile, the extra volatility added to the 0.25$\delta$ put and call volatility compared to the ATM volatility.
+					Often, a simplified formula is used to easily calculate the 0.25 delta volatilities given these quotes. Let $\sigma_{25-\text{C}}$ be the volatility of a call with delta of 0.25 and \sigma_{25-\text{P}}$ be the volatility of a put with delta of 0.25. Then,
+					$$\sigma_{25-\text{C}}=\sigma_{\text{ATM}}+\frac{1}{2}\sigma_{25-\text{RR}}+\sigma_{25-\text{BF}},$$
+					$$\sigma_{25-\text{P}}=\sigma_{\text{ATM}}-\frac{1}{2}\sigma_{25-\text{RR}}+\sigma_{25-\text{BF}}.$$
+				</p>
+				<p>
+					The last step in this process is now to employ some volatility smile calibration technique. This could be a polynomial interpolation, local volatility model such as Dupire's, stochastic volatility model such as SABR, and many more. We will touch on this in future posts! 
+				</p>
 			</article>
 		</main>
 		<script>
