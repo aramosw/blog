@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>
+			Root-Finding Methods — Borrowed Thoughts
+		</title>
+		<link rel="stylesheet" href="../style.css" />
+		<script>
+			window.MathJax = {
+				tex: {
+					inlineMath: [
+						["$", "$"],
+						["\\(", "\\)"],
+					],
+					displayMath: [
+						["$$", "$$"],
+						["\\[", "\\]"],
+					],
+				},
+			};
+		</script>
+		<script
+			defer
+			src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+		></script>
+	</head>
+	<body>
+		<header class="site-header">
+			<h1><a href="../index.html">Borrowed Thoughts</a></h1>
+			<nav>
+				<a href="../index.html">Home</a>
+				<a href="index.html">All Posts</a>
+				<button id="theme-toggle" aria-label="Toggle theme">
+					<span class="sun">☀️</span>
+					<span class="moon">🌙</span>
+				</button>
+			</nav>
+		</header>
+
+		<main>
+			<a class="back" href="../index.html">← Back To Homepage</a>
+			<article class="article">
+                <h1>Root-Finding Methods</h1>
+				<p class="meta">2025-12-12</p>
+                <h2>Introduction</h2>
+
+            </article>
+		</main>
+
+		<script>
+			const root = document.documentElement;
+			const toggleBtn = document.getElementById("theme-toggle");
+
+			if (localStorage.getItem("theme") === "dark") {
+				root.classList.add("dark");
+			}
+
+			toggleBtn.addEventListener("click", () => {
+				root.classList.toggle("dark");
+				localStorage.setItem(
+					"theme",
+					root.classList.contains("dark") ? "dark" : "light"
+				);
+			});
+		</script>
+	</body>
+</html>
+
+The Newton-Raphson method is an iterative numerical scheme used to find roots of a real-valued function. Given a differentiable function, $f:\mathbb{R}\to\mathbb{R}$, the Newton-Raphson iteration is given by,
+$$x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)},$$
+where $x_n$ is the current approximation and $x_0$ is a given/chosen starting point. This method is local. It only converges if the initial guess, $x_0$, is sufficiently near the actual root, $x^*$.
+ 
+Given that $f$ is twice differentiable, we can prove that the Newton-Raphson exhibits quadratic convergence. Suppose that $f$ has a root $x^*$ and define $\varepsilon_n=x_n-x*$. According to Taylor's Theorem, we can expand $f(x^*)$ around $x_n$ to obtain the following.
+$$f(x^*)=f(x_n)+f'(x_n)(x^*-x_n)+\frac{1}{2}f''(\zeta_n)(x^*-x_n)^2,$$
+where $\zeta_n$ is between $x_n$ and $x^*$. Since $x^*$ is a root, $f(x^*)=0$. Thus, we rearrange the equation to obtain the following.
+$$\frac{f(x_n)}{f'(x_n)}+(x^*-x_n)=-\frac{f''(\zeta_n)}{2f'(x_n)}(x^*-x_n)^2.$$
+Substituting this into the Newton-Raphson iterative scheme obtains the following.
+$$\varepsilon_{n+1}=-\frac{f''(\zeta_n)}{2f'(x_n)}\varepsilon_n^2.$$
+Taking absolute values,
+$$\lvert\varepsilon_{n+1}\rvert=\frac{\lvert f''(\zeta_n)\rvert}{2\lvert f'(x_n)\rvert}\varepsilon_n^2.$$
+Thus, under the following conditions, the Newton-Raphson is guaranteed to exhibit quadratic convergence:
+- $f'(x)\neq0$ for all $x\in I$ where $I=[x^*-\lvert\varepsilon_0\rvert, x^*+\lvert\varepsilon_0\rvert]$
+- $f''(x)$ is continuous for all $x\in I$
+- $M\lvert\varepsilon_0\rvert<1$ where $M=\frac{1}{2}(\sup_{x\in I}\lvert f''(x)\rvert)(\sup_{x\in I}\frac{1}{\lvert f'(x)\rvert})$ 
+Newton's method may also be used to solve a system of $k$ equation. This amounts to finding the roots of $k$-many differentiable functions, $f:\mathbb{R}^k\to\mathbb{R}$. Equivalently, finding the root to a single differentiable function, $F:\mathbb{R}^k\to\mathbb{R}^k$. Replacing scalars with vectors, we obtain the multi-dimensional Newton-Raphson iteration,
+$$x_{n+1}=x_n-J_F(x_n)^{-1}F(x_n),$$
+where $x_n,x_{n+1}\in\mathbb{R}^k$ and $J_F$ is the Jacobian matrix of $F$.
+
+A quasi-Newton Raphson method is an iterative numerical scheme used to find roots of a real-valued function using approximations of the derivatives of the functions in place of exact derivatives. As seen, Newton's method requires the Jacobian matrix of all partial derivatives. One of the key advantages of these methods is that the Hessian matrix does not need to be inverted as the inverse is approximately directly. In addition, $f$ no longer needs to be differentiable but continuous and non-constant within a neighbourhood of the root.
+ 
+The Secant method is a popular quasi-Newton method used to solve for roots in one dimension. It stems from approximating the derivative at $x_n$, $f'(x_n)$, by the secant line through coordinates $(x_{n-1}, f(x_{n-1}))$ and $(x_n, f(x_n))$,
+$$f'(x_n)=\frac{f(x_n)-f(x_{n-1})}{x_n-x_{n-1}}.$$
+Substituting this into Newton's iterative scheme, one obtains the Secant method. Formally, given that $f:[a, b]\to\mathbb{R}$ is continuous, the Secant iterative scheme is given by,
+$$x_{n+1}=x_n-f(x_n)\frac{f(x_n)-f(x_{n-1})}{x_n-x_{n-1}}.$$
+This method requires two initial guesses, $x_0$ and $x_1$. As mentioned, the iterative scheme requires that $f(x_n)\neq f(x_{n-1})$ for the iterations to be well-defined.
+ 
+Given that $f$ is twice differentiable, the Secant method exhibits superlinear convergence. Specifically, the method converges at rate $\phi=\frac{1+\sqrt{5}}{2}$.
+
+Other quasi-Newton methods include BFGS and Broyden's method.
+
+Bisection method.
