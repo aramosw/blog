@@ -93,13 +93,6 @@ main {
 	display: inline-block;
 	margin-bottom: 16px;
 }
-code,
-kbd {
-	background: #0f1530;
-	border: 1px solid #222a4d;
-	border-radius: 6px;
-	padding: 0 0.3em;
-}
 #theme-toggle {
 	background: var(--card);
 	color: var(--text);
@@ -133,4 +126,27 @@ kbd {
 }
 :root.dark #theme-toggle .moon {
 	display: inline;
+}
+pre {
+	background: #f2ebe2;
+	border: 1px solid #d9cbbb;
+	border-radius: 10px;
+	padding: 12px 14px;
+	overflow-x: auto;
+	margin: 18px 0;
+}
+pre code {
+	background: transparent;
+	color: var(--text);
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+		"Liberation Mono", "Courier New", monospace;
+	font-size: 0.85rem;
+	line-height: 1.5;
+}
+:root.dark pre {
+	background: #4a433e;
+	border-color: #807264;
+}
+:root.dark pre code {
+	color: #f2e9df;
 }

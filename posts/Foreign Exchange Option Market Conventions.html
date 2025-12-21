@@ -63,7 +63,7 @@
 					by interest-rate parity,
 					$$f=\mathbb{E}[S_T]=xe^{(r_d-r_f)\tau},$$ where $r_d$ is the
 					domestic interest-rate, $r_f$ is the foreign interest-rate
-					and $\tau$ is the time to maturity ($T-t$).
+					and $\tau:=(T-t)$ is the time to maturity.
 				</p>
 				<p>
 					At inception, an outright forward contract has a value of
@@ -74,8 +74,8 @@
 					$$e^{-r_d\tau}(f-K)=xe^{-r_f\tau}-Ke^{-r_d\tau}.$$
 				</p>
 				<p>
-					It is also worth mentioning that FX Forward contracts are
-					oftened quoted as FX Forward Points. This is the difference
+					It is also worth mentioning that FX forward contracts are
+					oftened quoted as FX forward points. This is the difference
 					between the spot exchange rate and forward outright point as
 					basis points. $$\tilde{f}=10000\times(f-x).$$
 				</p>
@@ -103,19 +103,19 @@
 					simplicity:
 				</p>
 				<ul>
-					<li>$\tau:=T-t$</li>
-					<li>$f:=\mathbb{E}[S_T]=xe^{(r_d-r_f)\tau}$</li>
+					<li>$\tau:=T-t$.</li>
+					<li>$f:=\mathbb{E}[S_T]=xe^{(r_d-r_f)\tau}$.</li>
 					<li>
-						$\theta_\pm:=\frac{r_d-r_f}{\sigma}\pm\frac{\sigma}{2}$
+						$\theta_\pm:=\frac{r_d-r_f}{\sigma}\pm\frac{\sigma}{2}.$
 					</li>
 					<li>
-						$d_\pm:=\frac{\log(\frac{x}{K})+\sigma\theta_\pm\tau}{\sigma\sqrt{\tau}}=\frac{\log(\frac{f}{k})\pm\frac{\sigma^2}{2}\tau}{\sigma\sqrt{\tau}}$
+						$d_\pm:=\frac{\log(\frac{x}{K})+\sigma\theta_\pm\tau}{\sigma\sqrt{\tau}}=\frac{\log(\frac{f}{k})\pm\frac{\sigma^2}{2}\tau}{\sigma\sqrt{\tau}}.$
 					</li>
 					<li>
-						$n(x):=\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}=n(-x)$
+						$n(x):=\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}=n(-x).$
 					</li>
 					<li>
-						$\mathcal{N}(x):=\int_{-\infty}^{x}n(t)\text{d}t=1-\mathcal{N}(-x)$
+						$\mathcal{N}(x):=\int_{-\infty}^{x}n(t)\text{d}t=1-\mathcal{N}(-x).$
 					</li>
 				</ul>
 				<h2>Delta Conventions</h2>
@@ -209,7 +209,60 @@
 					as well as ATM conventions.
 				</p>
 				<table>
-					Some Table
+					<thead>
+						<tr>
+							<th rowspan="2">Delta convention</th>
+							<th colspan="2">Forward ATM</th>
+							<th colspan="2">Delta-neutral saddle</th>
+						</tr>
+						<tr>
+							<th>Strike</th>
+							<th>Delta</th>
+							<th>Strike</th>
+							<th>Delta</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Spot delta</td>
+							<td>$fe^{\frac{1}{2}\sigma^2\tau}$</td>
+							<td>$f$</td>
+							<td>$\frac{1}{2}\phi e^{-r_f\tau}$</td>
+							<td>
+								\(\Delta_{\text{spot}}(K_{\text{saddle}})=0\)
+							</td>
+						</tr>
+						<tr>
+							<td>Forward delta</td>
+							<td>$fe^{\frac{1}{2}\sigma^2\tau}$</td>
+							<td>$f$</td>
+							<td>$\frac{1}{2}\phi$</td>
+							<td>
+								\(\Delta_{\text{fwd}}(K_{\text{saddle}})=0\)
+							</td>
+						</tr>
+						<tr>
+							<td>Premium-adjusted spot delta</td>
+							<td>$fe^{-\frac{1}{2}\sigma^2\tau}$</td>
+							<td>$f$</td>
+							<td>
+								$\frac{1}{2}\phi
+								e^{-r_f\tau}e^{\frac{1}{2}\sigma^2\tau}$
+							</td>
+							<td>
+								\(\Delta_{\text{pa-spot}}(K_{\text{saddle}})=0\)
+							</td>
+						</tr>
+						<tr>
+							<td>Premium-adjusted forward delta</td>
+							<td>$fe^{-\frac{1}{2}\sigma^2\tau}$</td>
+							<td>$f$</td>
+							<td>$\frac{1}{2}e^{\frac{1}{2}\sigma^2\tau}$</td>
+							<td>
+								\(\Delta_{\text{pa-fwd}}(K_{\text{saddle}})=0\)
+							</td>
+						</tr>
+					</tbody>
 				</table>
 				<h3>Delta-Strike Mapping</h3>
 				<p>
@@ -278,14 +331,14 @@
 					The key part of construction is to build a curve such that
 					it matches the market quotes. The FX market uses three
 					volatility quotes for a given delta (typically 0.25 and
-					0.10). Simply, we aim to build a curve function $\sigma:A\to
-					B$ that maps strikes to implied volatility such that
-					$\sigma(K_{\text{ATM}})=\sigma_{\text{ATM}}$,
+					0.10). Simply, we aim to build a curve function
+					$\sigma:A\mapsto B$ that maps strikes to implied volatility
+					such that $\sigma(K_{\text{ATM}})=\sigma_{\text{ATM}}$,
 					$\sigma(K_{25-\text{RR}})=\sigma_{25-\text{RR}}$ and
 					$\sigma(K_{25-\text{BF}})=\sigma_{25-\text{BF}}$.
 				</p>
 				<ul>
-					<li>ATM volatility, $\sigma_{\text{ATM}}$</li>
+					<li>ATM volatility, $\sigma_{\text{ATM}}$.</li>
 					<li>
 						Risk reversal (RR), $\sigma_{25-\text{RR}}$: A risk
 						reveral is a strategy where you are long an
@@ -303,19 +356,20 @@
 				</ul>
 				<p>
 					Risk reversals are used to measure the skewness of the
-					smile, the extra volatility added to the 0.25$\delta$ put
-					volatility compared to the 0.25$\delta$ call volatility.
-					Call flies are used to measure the curvature of the smile,
-					the extra volatility added to the 0.25$\delta$ put and call
+					smile, the extra volatility added to the 0.25 delta put
+					volatility compared to the 0.25 delta call volatility. Call
+					flies are used to measure the curvature of the smile, the
+					extra volatility added to the 0.25 delta put and call
 					volatility compared to the ATM volatility. Often, a
 					simplified formula is used to easily calculate the 0.25
 					delta volatilities given these quotes. Let
 					$\sigma_{25-\text{C}}$ be the volatility of a call with
-					delta of 0.25 and \sigma_{25-\text{P}}$ be the volatility of
-					a put with delta of 0.25. Then,
+					delta of 0.25 and $\sigma_{25-\text{P}}$ be the volatility
+					of a put with delta of 0.25. Then,
 					$$\sigma_{25-\text{C}}=\sigma_{\text{ATM}}+\frac{1}{2}\sigma_{25-\text{RR}}+\sigma_{25-\text{BF}},$$
 					$$\sigma_{25-\text{P}}=\sigma_{\text{ATM}}-\frac{1}{2}\sigma_{25-\text{RR}}+\sigma_{25-\text{BF}}.$$
 				</p>
+				<h3>Volatility Smile Calibration</h3>
 				<p>
 					The last step in this process is now to employ some
 					volatility smile calibration technique. This could be a
