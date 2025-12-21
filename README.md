@@ -1,11 +1,11 @@
-# Borrowed Thoughts
+This repository contains the source code for my personal website, _Borrowed Thoughts_, a collection of notes, ideas, and explorations related to **mathematical finance**, **quantitative investing**, **mathematics**, **data**, and **software engineering**, along with whatever else happens to catch my interest.
 
-This repository contains the source code for my personal website - a collection of thoughts, notes, and explorations related to **mathematical finance**, **quantitative investing**, **mathematics and statistics**, **data**, and **software engineering**, as well as whatever else happens to catch my interest.
+The name _Borrowed Thoughts_ is intentional. Very few ideas are truly original, and much of what appears here has been shaped by conversations with friends, mentors, and colleagues, or learned from books, papers, and other resources along the way. This site is less about presenting definitive answers and more about organising, revisiting, and sharing ideas that I’ve found useful, interesting, or worth thinking about.
 
-I’m not a front-end engineer, so the visuals are simple (lazy), but that’s intentional. The focus is on content rather than polish — sharing ideas, explanations, and observations that I find interesting or entertaining as I navigate the quantitative space.
+I’m not a front-end engineer, so the visuals are deliberately simple (lazy). The focus is on content rather than polish.
 
-Everything here is static HTML, CSS, and JavaScript — no frameworks, no build tools, just a lightweight setup that renders LaTeX, code, and general ramblings in one place.
+If anything here sparks a question or further discussion, feel free to reach out. You can contact me via email at **aramosw@gmail.com**.
 
 ---
 
-Thanks for visiting, and I hope you find something worth reading.
+Thanks for visiting, and I hope you find something worth reading!
