@@ -150,3 +150,36 @@ pre code {
 :root.dark pre code {
 	color: #f2e9df;
 }
+table {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: var(--card);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+thead th {
+  background: color-mix(in oklab, var(--card) 85%, black 10%);
+  color: var(--text);
+  text-align: center;
+  padding: 10px 12px;
+  font-weight: 600;
+}
+tbody td, tbody th {
+  padding: 10px 12px;
+  border-top: 1px solid color-mix(in oklab, var(--card) 65%, black 25%);
+  text-align: center;
+}
+tbody tr:nth-child(odd) {
+  background: color-mix(in oklab, var(--card) 92%, black 4%);
+}
+:root.dark thead th {
+  background: color-mix(in oklab, var(--card) 75%, white 6%);
+}
+:root.dark tbody td, :root.dark tbody th {
+  border-top-color: color-mix(in oklab, var(--card) 50%, white 14%);
+}
+td code, td .katex, td .math {
+  white-space: nowrap;
+}
