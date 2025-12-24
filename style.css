@@ -476,3 +476,43 @@ blockquote {
 		align-items: flex-start;
 	}
 }
+
+.chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 10px;
+	border-radius: 999px;
+	border: 1px solid var(--chip-border);
+	background: var(--chip-bg);
+	font-size: 0.85rem;
+	line-height: 1;
+}
+
+.chip.topic {
+	color: var(--muted);
+	background: var(--chip-bg);
+	border-color: var(--chip-border);
+}
+
+.chip.tag {
+	--tag-color: var(--accent2);
+	color: var(--text);
+	background: color-mix(in srgb, var(--tag-color) 18%, var(--card));
+	border-color: color-mix(in srgb, var(--tag-color) 35%, var(--chip-border));
+}
+
+:root.dark .chip.tag {
+	background: color-mix(in srgb, var(--tag-color) 24%, var(--card));
+	border-color: color-mix(in srgb, var(--tag-color) 40%, var(--chip-border));
+	color: var(--text);
+}
+
+.chip.topic::before {
+	content: "";
+	width: 8px;
+	height: 8px;
+	border-radius: 999px;
+	background: var(--topbar);
+	opacity: 0.9;
+}
