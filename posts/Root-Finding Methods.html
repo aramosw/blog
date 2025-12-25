@@ -61,154 +61,176 @@
 
 		<main>
 			<a class="back" href="../index.html">← Back To Homepage</a>
-			<article class="article">
-				<h1>Root-Finding Methods</h1>
-				<p class="meta">2025-12-12</p>
-				<h2>Introduction</h2>
-				<p>
-					Root-finding methods are fundamental tools in numerical
-					analysis, enabling us to determine solutions to equations
-					that cannot be solved analytically. In practice, the
-					functions involved may be highly non-linear or lack
-					closed-form solutions, making numerical techniques
-					indispensable.
-				</p>
-				<h2>Bisection Method</h2>
-				<p>
-					The bisection method is one of the simplest numerical
-					schemes for locating a root of a function. Suppose that
-					$f:[a,b]\mapsto\mathbb{R}$ is continuous and that
-					$f(a)f(b)\lt0$ (i.e. have opposite signs). By the
-					Intermediate Value Theorem, there must exist at least one
-					root, $x^*$, in the interval $[a,b]$. The idea behind the
-					Bisection method is similar to that of a binary search,
-					repeatedly halve the interval while preserving the sign
-					change.
-				</p>
-				<p>
-					Let $m=\frac{a+b}{2}$ denote the midpoint of an interval
-					$[a,b]$. If $f(a)$ and $f(m)$ have opposite signs, then the
-					root must lie in $[a,m]$; otherwise it lies in $(m,b]$.
-					Repeating this procedure generates a nested sequence of
-					intervals whose lengths shrink to zero, and the midpoints
-					converge linearly to the root.
-				</p>
-				<p>
-					Formally, we begin with an initial bracket $[a_0,b_0]$ such
-					that $f(a_0)f(b_0)\lt0$. The iterative scheme is then given
-					by $$m_n=\frac{a_n+b_n}{2},\qquad [a_{n+1},b_{n+1}]=
-					\begin{cases} [a_n,m_n], & f(a_n)f(m_n)\lt0,\\\\ (m_n,b_n],
-					& \text{otherwise}. \end{cases}$$ The approximation to the
-					root after $n$ iterations is simply $m_n$. Since the
-					interval length halves on each iteration, the error
-					satisfies $$\lvert m_n-x^*\rvert\leq
-					\frac{b_0-a_0}{2^{n+1}},$$ which demonstrates the method's
-					linear convergence.
-				</p>
-				<p>
-					While this is slow compared with Newton-Raphson's quadratic
-					convergence, the reliability of the bisection method makes
-					it indispensable, particularly when a derivative is
-					difficult to compute or when a function is known to be
-					monotone. The method also forms the backbone of more
-					sophisticated hybrid algorithms, such as Brent's method.
-				</p>
-				<h2>Newton-Raphson Method</h2>
-				<p>
-					The Newton-Raphson method is a root-finding scheme for a
-					differentiable function. Given a differentiable function,
-					$f:\mathbb{R}\mapsto\mathbb{R}$, the Newton-Raphson
-					iteration is given by,
-					$$x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)},$$ where $x_n$ is the
-					current approximation and $x_0$ is a given/chosen starting
-					point. This method is local. It only converges if the
-					initial guess, $x_0$, is sufficiently near the actual root,
-					$x^*$.
-				</p>
-				<h3>Quadratic Convergence</h3>
-				<p>
-					Given that $f$ is twice differentiable, we can prove that
-					the Newton-Raphson exhibits quadratic convergence. Suppose
-					that $f$ has a root $x^*$ and define
-					$\varepsilon_n=x_n-x^*$. According to Taylor's Theorem, we
-					can expand $f(x^*)$ around $x_n$ to obtain the following.
-					$$f(x^*)=f(x_n)+f'(x_n)(x^*-x_n)+\frac{1}{2}f''(\zeta_n)(x^*-x_n)^2,$$
-					where $\zeta_n$ is between $x_n$ and $x^*$. Since $x^*$ is a
-					root, $f(x^*)=0$. Thus, we rearrange the equation to obtain
-					the following.
-					$$\frac{f(x_n)}{f'(x_n)}+(x^*-x_n)=-\frac{f''(\zeta_n)}{2f'(x_n)}(x^*-x_n)^2.$$
-					Substituting this into the Newton-Raphson iterative scheme
-					obtains the following.
-					$$\varepsilon_{n+1}=-\frac{f''(\zeta_n)}{2f'(x_n)}\varepsilon_n^2.$$
-					Taking absolute values,
-					$$\lvert\varepsilon_{n+1}\rvert=\frac{\lvert
-					f''(\zeta_n)\rvert}{2\lvert f'(x_n)\rvert}\varepsilon_n^2.$$
-					Thus, under the following conditions, the Newton-Raphson is
-					guaranteed to exhibit quadratic convergence:
-				</p>
-				<ul>
-					<li>
-						$f'(x)\neq0$ for all $x\in I$ where
-						$I=[x^*-\lvert\varepsilon_0\rvert,
-						x^*+\lvert\varepsilon_0\rvert].$
-					</li>
-					<li>$f''(x)$ is continuous for all $x\in I$.</li>
-					<li>
-						$M\lvert\varepsilon_0\rvert\lt1$ where
-						$M=\frac{1}{2}\left(\sup_{x\in I}\lvert
-						f''(x)\rvert\right)\left(\sup_{x\in I}\frac{1}{\lvert
-						f'(x)\rvert}\right).$
-					</li>
-				</ul>
-				<h3>Multi-Dimensional Newton-Raphson</h3>
-				<p>
-					Newton's method may also be used to solve a system of $k$
-					equations. This amounts to finding the roots of $k$-many
-					differentiable functions, $f:\mathbb{R}^k\mapsto\mathbb{R}$.
-					Equivalently, finding the root to a single differentiable
-					function, $F:\mathbb{R}^k\mapsto\mathbb{R}^k$. Replacing
-					scalars with vectors, we obtain the multi-dimensional
-					Newton-Raphson iteration,
-					$$x_{n+1}=x_n-J_F(x_n)^{-1}F(x_n),$$ where
-					$x_n,x_{n+1}\in\mathbb{R}^k$ and $J_F$ is the Jacobian
-					matrix of $F$.
-				</p>
-				<h2>Quasi-Newton Raphson Methods</h2>
-				<p>
-					A quasi-Newton Raphson method is an iterative numerical
-					scheme used to find roots of a real-valued function using
-					approximations of the derivatives of the functions in place
-					of exact derivatives. As seen, Newton's method requires the
-					Jacobian matrix of all partial derivatives. One of the key
-					advantages of these methods is that the Hessian matrix does
-					not need to be inverted as the inverse is approximately
-					directly. In addition, $f$ no longer needs to be
-					differentiable but continuous and non-constant within a
-					neighbourhood of the root. The Secant method is a popular
-					quasi-Newton method used to solve for roots in one
-					dimension. It stems from approximating the derivative at
-					$x_n$, $f'(x_n)$, by the secant line through coordinates
-					$(x_{n-1}, f(x_{n-1}))$ and $(x_n, f(x_n))$,
-					$$f'(x_n)=\frac{f(x_n)-f(x_{n-1})}{x_n-x_{n-1}}.$$
-					Substituting this into Newton's iterative scheme, one
-					obtains the Secant method. Formally, given that $f:[a,
-					b]\mapsto\mathbb{R}$ is continuous, the Secant iterative
-					scheme is given by,
-					$$x_{n+1}=x_n-f(x_n)\frac{f(x_n)-f(x_{n-1})}{x_n-x_{n-1}}.$$
-					This method requires two initial guesses, $x_0$ and $x_1$.
-					As mentioned, the iterative scheme requires that $f(x_n)\neq
-					f(x_{n-1})$ for the iterations to be well-defined. Given
-					that $f$ is twice differentiable, the Secant method exhibits
-					superlinear convergence. Specifically, the method converges
-					at rate $\phi=\frac{1+\sqrt{5}}{2}$.
-				</p>
-				<h3>Example Implementation</h3>
-				<p>
-					Whilst conditional convergence of the secant method can be
-					proven in a similar fashion to the Newton-Raphson method,
-					here is a simple implementation demonstrating convergence.
-				</p>
-				<pre><code>
+			<div class="page">
+				<aside class="toc" aria-label="Chapters">
+					<div class="toc-card">
+						<div class="toc-title">Chapters</div>
+						<nav class="toc-links">
+							<a href="#introduction">Introduction</a>
+							<a href="#bisection-method">Bisection Method</a>
+							<a href="#newton-method">Newton-Raphson Method</a>
+							<a href="#quasi-method"
+								>Quasi-Newton Raphson Methods</a
+							>
+							<a href="#brent-method">Brent's Method</a>
+						</nav>
+					</div>
+				</aside>
+				<article class="article">
+					<h1>Root-Finding Methods</h1>
+					<p class="meta">2025-12-12</p>
+					<h2 id="introduction">Introduction</h2>
+					<p>
+						Root-finding methods are fundamental tools in numerical
+						analysis, enabling us to determine solutions to
+						equations that cannot be solved analytically. In
+						practice, the functions involved may be highly
+						non-linear or lack closed-form solutions, making
+						numerical techniques indispensable.
+					</p>
+					<h2 id="bisection-method">Bisection Method</h2>
+					<p>
+						The bisection method is one of the simplest numerical
+						schemes for locating a root of a function. Suppose that
+						$f:[a,b]\mapsto\mathbb{R}$ is continuous and that
+						$f(a)f(b)\lt0$ (i.e. have opposite signs). By the
+						Intermediate Value Theorem, there must exist at least
+						one root, $x^*$, in the interval $[a,b]$. The idea
+						behind the Bisection method is similar to that of a
+						binary search, repeatedly halve the interval while
+						preserving the sign change.
+					</p>
+					<p>
+						Let $m=\frac{a+b}{2}$ denote the midpoint of an interval
+						$[a,b]$. If $f(a)$ and $f(m)$ have opposite signs, then
+						the root must lie in $[a,m]$; otherwise it lies in
+						$(m,b]$. Repeating this procedure generates a nested
+						sequence of intervals whose lengths shrink to zero, and
+						the midpoints converge linearly to the root.
+					</p>
+					<p>
+						Formally, we begin with an initial bracket $[a_0,b_0]$
+						such that $f(a_0)f(b_0)\lt0$. The iterative scheme is
+						then given by $$m_n=\frac{a_n+b_n}{2},\qquad
+						[a_{n+1},b_{n+1}]= \begin{cases} [a_n,m_n], &
+						f(a_n)f(m_n)\lt0,\\\\ (m_n,b_n], & \text{otherwise}.
+						\end{cases}$$ The approximation to the root after $n$
+						iterations is simply $m_n$. Since the interval length
+						halves on each iteration, the error satisfies $$\lvert
+						m_n-x^*\rvert\leq \frac{b_0-a_0}{2^{n+1}},$$ which
+						demonstrates the method's linear convergence.
+					</p>
+					<p>
+						While this is slow compared with Newton-Raphson's
+						quadratic convergence, the reliability of the bisection
+						method makes it indispensable, particularly when a
+						derivative is difficult to compute or when a function is
+						known to be monotone. The method also forms the backbone
+						of more sophisticated hybrid algorithms, such as Brent's
+						method.
+					</p>
+					<h2 id="newton-method">Newton-Raphson Method</h2>
+					<p>
+						The Newton-Raphson method is a root-finding scheme for a
+						differentiable function. Given a differentiable
+						function, $f:\mathbb{R}\mapsto\mathbb{R}$, the
+						Newton-Raphson iteration is given by,
+						$$x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)},$$ where $x_n$ is
+						the current approximation and $x_0$ is a given/chosen
+						starting point. This method is local. It only converges
+						if the initial guess, $x_0$, is sufficiently near the
+						actual root, $x^*$.
+					</p>
+					<h3>Quadratic Convergence</h3>
+					<p>
+						Given that $f$ is twice differentiable, we can prove
+						that the Newton-Raphson exhibits quadratic convergence.
+						Suppose that $f$ has a root $x^*$ and define
+						$\varepsilon_n=x_n-x^*$. According to Taylor's Theorem,
+						we can expand $f(x^*)$ around $x_n$ to obtain the
+						following.
+						$$f(x^*)=f(x_n)+f'(x_n)(x^*-x_n)+\frac{1}{2}f''(\zeta_n)(x^*-x_n)^2,$$
+						where $\zeta_n$ is between $x_n$ and $x^*$. Since $x^*$
+						is a root, $f(x^*)=0$. Thus, we rearrange the equation
+						to obtain the following.
+						$$\frac{f(x_n)}{f'(x_n)}+(x^*-x_n)=-\frac{f''(\zeta_n)}{2f'(x_n)}(x^*-x_n)^2.$$
+						Substituting this into the Newton-Raphson iterative
+						scheme obtains the following.
+						$$\varepsilon_{n+1}=-\frac{f''(\zeta_n)}{2f'(x_n)}\varepsilon_n^2.$$
+						Taking absolute values,
+						$$\lvert\varepsilon_{n+1}\rvert=\frac{\lvert
+						f''(\zeta_n)\rvert}{2\lvert
+						f'(x_n)\rvert}\varepsilon_n^2.$$ Thus, under the
+						following conditions, the Newton-Raphson is guaranteed
+						to exhibit quadratic convergence:
+					</p>
+					<ul>
+						<li>
+							$f'(x)\neq0$ for all $x\in I$ where
+							$I=[x^*-\lvert\varepsilon_0\rvert,
+							x^*+\lvert\varepsilon_0\rvert].$
+						</li>
+						<li>$f''(x)$ is continuous for all $x\in I$.</li>
+						<li>
+							$M\lvert\varepsilon_0\rvert\lt1$ where
+							$M=\frac{1}{2}\left(\sup_{x\in I}\lvert
+							f''(x)\rvert\right)\left(\sup_{x\in
+							I}\frac{1}{\lvert f'(x)\rvert}\right).$
+						</li>
+					</ul>
+					<h3>Multi-Dimensional Newton-Raphson</h3>
+					<p>
+						Newton's method may also be used to solve a system of
+						$k$ equations. This amounts to finding the roots of
+						$k$-many differentiable functions,
+						$f:\mathbb{R}^k\mapsto\mathbb{R}$. Equivalently, finding
+						the root to a single differentiable function,
+						$F:\mathbb{R}^k\mapsto\mathbb{R}^k$. Replacing scalars
+						with vectors, we obtain the multi-dimensional
+						Newton-Raphson iteration,
+						$$x_{n+1}=x_n-J_F(x_n)^{-1}F(x_n),$$ where
+						$x_n,x_{n+1}\in\mathbb{R}^k$ and $J_F$ is the Jacobian
+						matrix of $F$.
+					</p>
+					<h2 id="quasi-method">Quasi-Newton Raphson Methods</h2>
+					<p>
+						A quasi-Newton Raphson method is an iterative numerical
+						scheme used to find roots of a real-valued function
+						using approximations of the derivatives of the functions
+						in place of exact derivatives. As seen, Newton's method
+						requires the Jacobian matrix of all partial derivatives.
+						One of the key advantages of these methods is that the
+						Hessian matrix does not need to be inverted as the
+						inverse is approximately directly. In addition, $f$ no
+						longer needs to be differentiable but continuous and
+						non-constant within a neighbourhood of the root. The
+						Secant method is a popular quasi-Newton method used to
+						solve for roots in one dimension. It stems from
+						approximating the derivative at $x_n$, $f'(x_n)$, by the
+						secant line through coordinates $(x_{n-1}, f(x_{n-1}))$
+						and $(x_n, f(x_n))$,
+						$$f'(x_n)=\frac{f(x_n)-f(x_{n-1})}{x_n-x_{n-1}}.$$
+						Substituting this into Newton's iterative scheme, one
+						obtains the Secant method. Formally, given that $f:[a,
+						b]\mapsto\mathbb{R}$ is continuous, the Secant iterative
+						scheme is given by,
+						$$x_{n+1}=x_n-f(x_n)\frac{f(x_n)-f(x_{n-1})}{x_n-x_{n-1}}.$$
+						This method requires two initial guesses, $x_0$ and
+						$x_1$. As mentioned, the iterative scheme requires that
+						$f(x_n)\neq f(x_{n-1})$ for the iterations to be
+						well-defined. Given that $f$ is twice differentiable,
+						the Secant method exhibits superlinear convergence.
+						Specifically, the method converges at rate
+						$\phi=\frac{1+\sqrt{5}}{2}$.
+					</p>
+					<h3>Example Implementation</h3>
+					<p>
+						Whilst conditional convergence of the secant method can
+						be proven in a similar fashion to the Newton-Raphson
+						method, here is a simple implementation demonstrating
+						convergence.
+					</p>
+					<pre><code>
 def secant(f, x0, x1, tol=1e-12, max_iter=10000):
 	f0 = f(x0)
 	f1 = f(x1)
@@ -223,76 +245,78 @@ def secant(f, x0, x1, tol=1e-12, max_iter=10000):
 		x0, x1, f0, f1 = x1, x2, f1, f(x2)
 	return x
 				</code></pre>
-				<p>
-					Given a known function, such as $f(x)=x^2-2$, we can store
-					iterates and observe convergence. Passing $f$ as a lambda
-					function along with two initial guesses, $x_0$ and $x_1$,
-					the function returns a list of iterates.
-				</p>
-				<p>
-					On a side note, other quasi-Newton methods include BFGS and
-					Broyden's method.
-				</p>
-				<h2>Brent's Method</h2>
-				<p>
-					Brent's method is a hybrid algorithm that combines the
-					robustness of the bisection method with the faster
-					convergence of the Secant method and inverse quadratic
-					interpolation.
-				</p>
-				<p>
-					Let $f:[a_0,b_0]\mapsto\mathbb{R}$ be continuous with
-					$f(a_0)f(b_0)\lt0$. Brent's method maintains three points
-					$a_n$, $b_n$, and $c_n$ such that $f(a_n)f(b_n)\lt0$ and
-					$b_n$ is the current best approximation. At iteration $n$,
-					let:
-				</p>
-				<ul>
-					<li>
-						$a_n$ and $b_n$ be the endpoints of the current bracket.
-					</li>
-					<li>$c_n=b_{n-1}$ be the previous value of $b_n$.</li>
-					<li>$s_n$ denote the proposed update.</li>
-				</ul>
+					<p>
+						Given a known function, such as $f(x)=x^2-2$, we can
+						store iterates and observe convergence. Passing $f$ as a
+						lambda function along with two initial guesses, $x_0$
+						and $x_1$, the function returns a list of iterates.
+					</p>
+					<p>
+						On a side note, other quasi-Newton methods include BFGS
+						and Broyden's method.
+					</p>
+					<h2 id="brent-method">Brent's Method</h2>
+					<p>
+						Brent's method is a hybrid algorithm that combines the
+						robustness of the bisection method with the faster
+						convergence of the Secant method and inverse quadratic
+						interpolation.
+					</p>
+					<p>
+						Let $f:[a_0,b_0]\mapsto\mathbb{R}$ be continuous with
+						$f(a_0)f(b_0)\lt0$. Brent's method maintains three
+						points $a_n$, $b_n$, and $c_n$ such that
+						$f(a_n)f(b_n)\lt0$ and $b_n$ is the current best
+						approximation. At iteration $n$, let:
+					</p>
+					<ul>
+						<li>
+							$a_n$ and $b_n$ be the endpoints of the current
+							bracket.
+						</li>
+						<li>$c_n=b_{n-1}$ be the previous value of $b_n$.</li>
+						<li>$s_n$ denote the proposed update.</li>
+					</ul>
 
-				<p>The interpolation step is given by:</p>
+					<p>The interpolation step is given by:</p>
 
-				<ul>
-					<li>
-						A secant interpolation if $f(a_n)\neq f(b_n)$:
-						$$s_n=b_n-f(b_n)\frac{b_n-a_n}{f(b_n)-f(a_n)}.$$
-					</li>
+					<ul>
+						<li>
+							A secant interpolation if $f(a_n)\neq f(b_n)$:
+							$$s_n=b_n-f(b_n)\frac{b_n-a_n}{f(b_n)-f(a_n)}.$$
+						</li>
 
-					<li>
-						An inverse quadratic interpolation if $f(a_n)$,
-						$f(b_n)$, $f(c_n)$ are distinct: $$ \begin{aligned} s_n
-						&=
-						a_n\frac{f(b_n)f(c_n)}{(f(a_n)-f(b_n))(f(a_n)-f(c_n))}
-						\\ &\quad +
-						b_n\frac{f(a_n)f(c_n)}{(f(b_n)-f(a_n))(f(b_n)-f(c_n))}
-						\\ &\quad +
-						c_n\frac{f(a_n)f(b_n)}{(f(c_n)-f(a_n))(f(c_n)-f(b_n))}.
-						\end{aligned} $$
-					</li>
-				</ul>
-				<p>
-					The interpolation step is accepted only if it lies within
-					the admissible interval,
-					$$s_n\in\left[\frac{3a_n+b_n}{4},\,b_n\right],$$ and if it
-					satisfies additional step-size conditions, $$\lvert
-					s_n-b_n\rvert \le \frac{1}{2}\lvert b_n-c_n\rvert.$$
-					Otherwise, the method defaults to the bisection update,
-					$$s_n=\frac{a_n+b_n}{2}.$$
-				</p>
-				<p>
-					The next bracket is chosen to maintain a sign change: $$
-					[a_{n+1},b_{n+1}]= \begin{cases} [a_n,s_n], &
-					f(a_n)f(s_n)\lt0,\\\\ (s_n,b_n], & \text{otherwise}.
-					\end{cases} $$ A stopping condition is triggered when the
-					interval width satisfies $\lvert
-					b_n-a_n\rvert\le\varepsilon$ or when $f(s_n)=0$.
-				</p>
-			</article>
+						<li>
+							An inverse quadratic interpolation if $f(a_n)$,
+							$f(b_n)$, $f(c_n)$ are distinct: $$ \begin{aligned}
+							s_n &=
+							a_n\frac{f(b_n)f(c_n)}{(f(a_n)-f(b_n))(f(a_n)-f(c_n))}
+							\\ &\quad +
+							b_n\frac{f(a_n)f(c_n)}{(f(b_n)-f(a_n))(f(b_n)-f(c_n))}
+							\\ &\quad +
+							c_n\frac{f(a_n)f(b_n)}{(f(c_n)-f(a_n))(f(c_n)-f(b_n))}.
+							\end{aligned} $$
+						</li>
+					</ul>
+					<p>
+						The interpolation step is accepted only if it lies
+						within the admissible interval,
+						$$s_n\in\left[\frac{3a_n+b_n}{4},\,b_n\right],$$ and if
+						it satisfies additional step-size conditions, $$\lvert
+						s_n-b_n\rvert \le \frac{1}{2}\lvert b_n-c_n\rvert.$$
+						Otherwise, the method defaults to the bisection update,
+						$$s_n=\frac{a_n+b_n}{2}.$$
+					</p>
+					<p>
+						The next bracket is chosen to maintain a sign change: $$
+						[a_{n+1},b_{n+1}]= \begin{cases} [a_n,s_n], &
+						f(a_n)f(s_n)\lt0,\\\\ (s_n,b_n], & \text{otherwise}.
+						\end{cases} $$ A stopping condition is triggered when
+						the interval width satisfies $\lvert
+						b_n-a_n\rvert\le\varepsilon$ or when $f(s_n)=0$.
+					</p>
+				</article>
+			</div>
 		</main>
 
 		<script>

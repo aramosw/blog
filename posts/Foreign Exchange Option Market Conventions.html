@@ -63,343 +63,377 @@
 
 		<main>
 			<a class="back" href="../index.html">← Back To Homepage</a>
-			<article class="article">
-				<h1>Foreign Exchange Options Market Conventions</h1>
-				<p class="meta">2025-11-13</p>
-				<h2>FX Spot Market</h2>
-				<p>
-					Currency pairs are commonly quoted using ISO codes in the
-					format FORDOM, where FOR is the foreign currency and DOM is
-					the domestic currency. For example, in the EURUSD pair, EUR
-					is the foreign currency and USD is the domestic currency.
-					The FX spot rate, $x$, for the currency pair FORDOM
-					represents the number of units of DOM is needed to buy one
-					unit of FOR. The domestic currency is also referred to as
-					the numeraire currency.
-				</p>
-				<h2>FX Forward Contract</h2>
-				<p>
-					A forward contract allows an investor to exchange currencies
-					at a time, $T$, at a pre-specified outright forward rate,
-					$f$. The outright forward rate is related to the spot rate
-					by interest-rate parity,
-					$$f=\mathbb{E}[S_T]=xe^{(r_d-r_f)\tau},$$ where $r_d$ is the
-					domestic interest-rate, $r_f$ is the foreign interest-rate
-					and $\tau:=(T-t)$ is the time to maturity.
-				</p>
-				<p>
-					At inception, an outright forward contract has a value of
-					zero. Thereafter, when markets move, the value of the
-					forward contract is no longer zero but is worth the
-					discounted difference between the expected exchange rate,
-					$f$, and pre-specified outright forward rate, $K$.
-					$$e^{-r_d\tau}(f-K)=xe^{-r_f\tau}-Ke^{-r_d\tau}.$$
-				</p>
-				<p>
-					It is also worth mentioning that FX forward contracts are
-					oftened quoted as FX forward points. This is the difference
-					between the spot exchange rate and forward outright point as
-					basis points. $$\tilde{f}=10000\times(f-x).$$
-				</p>
-				<h2>FX Vanilla Option Contracts</h2>
-				<p>
-					An option contract is simply (not so simple to be honest) an
-					extension of a forward contract. It provides the investor
-					the right, but not the obligation, to exchange currencies at
-					a time $T$ at a pre-specified rate known as the strike, $K$.
-					The key part here is the additional optionality as in the
-					name. In FX markets, these contracts are usually physically
-					settled. This means that at expiry, the owner of a vanilla
-					FORDOM call (put) option receives $N$ units of FOR and pays
-					$NK$ DOM. Intuitively, the additional optionality comes at a
-					cost. This cost is what traders and market makers want to be
-					able to gauge accurately and is the ultimate motivation for
-					everything we discuss in option theory.
-				</p>
-				<p>
-					The value of a vanilla option can be computed with the
-					standard Black-Scholes model.
-					$$V(x,K,T,t,\sigma,r_d,r_f,\phi)=\phi
-					e^{-r_d\tau}[f\mathcal{N}(\phi d_+)-K\mathcal{N}(\phi
-					d_-)].$$ The following terms have been abbreviated for
-					simplicity:
-				</p>
-				<ul>
-					<li>$\tau:=T-t$.</li>
-					<li>$f:=\mathbb{E}[S_T]=xe^{(r_d-r_f)\tau}$.</li>
-					<li>
-						$\theta_\pm:=\frac{r_d-r_f}{\sigma}\pm\frac{\sigma}{2}.$
-					</li>
-					<li>
-						$d_\pm:=\frac{\log(\frac{x}{K})+\sigma\theta_\pm\tau}{\sigma\sqrt{\tau}}=\frac{\log(\frac{f}{k})\pm\frac{\sigma^2}{2}\tau}{\sigma\sqrt{\tau}}.$
-					</li>
-					<li>
-						$n(x):=\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}=n(-x).$
-					</li>
-					<li>
-						$\mathcal{N}(x):=\int_{-\infty}^{x}n(t)\text{d}t=1-\mathcal{N}(-x).$
-					</li>
-				</ul>
-				<h2>Delta Conventions</h2>
-				<p>
-					The delta of an option is the percentage of the FOR notional
-					one must buy when selling the option to hold a hedged
-					position. For instance, a delta of 0.35 (35%) indicates
-					buying 35% of the FOR notional to delta-hedge a short
-					option.
-				</p>
-				<p>
-					In FX markets, we distinguish spot delta, used for a hedge
-					in the spot market, from forward delta, used for a hedge in
-					the forward market. Furthermore, the standard delta is a
-					quantity in percent of foreign currency. Suppose the value
-					of an option with a notional of 1,000,000 FOR was calculated
-					as 73,669 DOM. Assuming a short position with a delta of 40%
-					means, that buying 400,000 FOR is necessary to hedge.
-					However the final hedge quantity will be 326,331 FOR which
-					is the delta quantity reduced by the received premium in
-					FOR. Consequently, the premium-adjusted delta would be
-					32.63%.
-				</p>
-				<h3>Unadjusted Deltas</h3>
-				<ul>
-					<li>
-						Spot delta: The sensitivity of a vanilla option's
-						premium with respect to the spot rate, $x$, is given as,
-						$$\Delta_s(K,\sigma,\phi):=\frac{\partial V}{\partial
-						x}=\phi e^{-r_f\tau}\mathcal{N}(\phi d_+).$$
-					</li>
-					<li>
-						Forward delta: An alternative solution to a spot hedge
-						is a hedge with a forward contract. The sensitivity of a
-						vanilla option's premium with respect to the outright
-						forward rate, $f$, is given as,
-						$$\Delta_f(K,\sigma,\phi):=\frac{\partial V}{\partial
-						f}=\phi\mathcal{N}(\phi d_+).$$
-					</li>
-				</ul>
-				<h3>Premium-Adjusted Deltas</h3>
-				<ul>
-					<li>
-						Premium-adjusted spot delta: This takes care of the
-						correction induced by payment of the premium in FOR
-						currency, which is the amount by which the delta hedge
-						in foreign currency has to be corrected. The delta can
-						be represented as,
-						$$\Delta_{s,pa}:=\Delta_s-\frac{V}{x}=\phi
-						e^{-r_f\tau}\frac{K}{f}\mathcal{N}(\phi d_-).$$
-					</li>
-					<li>
-						Premum-adjusted forward Delta: As in the case of a spot
-						delta, a premium payment in foreign currency leads to an
-						adjustment of the forward delta. The resulting hedge
-						quantity is given by,
-						$$\Delta_{f,pa}(K,\sigma,\phi):=\Delta_f-\frac{V}{f}=\phi
-						e^{-r_f\tau}\frac{K}{f}\mathcal{N}(\phi d_-).$$
-					</li>
-				</ul>
-				<p>
-					Sadly, which deltas are used in practice varies depending on
-					the currency pair and cannot be attributed to a rule-based
-					system.
-				</p>
-				<h2>At-The-Money Conventions</h2>
-				<p>
-					As you are probably figuring out for yourself, nothing is
-					straightforward in the options market. There tends to be two
-					prominent ways of defining the at-the-money (ATM) strike.
-				</p>
-				<ul>
-					<li>
-						Forward ATM: This takes into account that the
-						risk-neutral expectation of the future spot is the
-						forward price, which is a natural way of specifying the
-						middle. It is very common for currency pairs with a
-						large interest rate differential (emerging markets) or
-						long maturity (typically 10Y onwards).
-					</li>
-					<li>
-						Delta-neutral saddle (DNS): This ensures that a straddle
-						(long call and long put with the same strike) has zero
-						combined delta. The strike that satisfies this is the
-						ATM strike. This convention is considered as the default
-						notion for short-dated FX options (up to 1Y typically).
-					</li>
-				</ul>
-				<p>
-					The table below summarises the different delta conventions
-					as well as ATM conventions.
-				</p>
-				<table>
-					<thead>
-						<tr>
-							<th rowspan="2">Delta convention</th>
-							<th colspan="2">Forward ATM</th>
-							<th colspan="2">Delta-neutral saddle</th>
-						</tr>
-						<tr>
-							<th>Strike</th>
-							<th>Delta</th>
-							<th>Strike</th>
-							<th>Delta</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Spot delta</td>
-							<td>$fe^{\frac{1}{2}\sigma^2\tau}$</td>
-							<td>$f$</td>
-							<td>$\frac{1}{2}\phi e^{-r_f\tau}$</td>
-							<td>
-								\(\Delta_{\text{spot}}(K_{\text{saddle}})=0\)
-							</td>
-						</tr>
-						<tr>
-							<td>Forward delta</td>
-							<td>$fe^{\frac{1}{2}\sigma^2\tau}$</td>
-							<td>$f$</td>
-							<td>$\frac{1}{2}\phi$</td>
-							<td>
-								\(\Delta_{\text{fwd}}(K_{\text{saddle}})=0\)
-							</td>
-						</tr>
-						<tr>
-							<td>Premium-adjusted spot delta</td>
-							<td>$fe^{-\frac{1}{2}\sigma^2\tau}$</td>
-							<td>$f$</td>
-							<td>
-								$\frac{1}{2}\phi
-								e^{-r_f\tau}e^{\frac{1}{2}\sigma^2\tau}$
-							</td>
-							<td>
-								\(\Delta_{\text{pa-spot}}(K_{\text{saddle}})=0\)
-							</td>
-						</tr>
-						<tr>
-							<td>Premium-adjusted forward delta</td>
-							<td>$fe^{-\frac{1}{2}\sigma^2\tau}$</td>
-							<td>$f$</td>
-							<td>$\frac{1}{2}e^{\frac{1}{2}\sigma^2\tau}$</td>
-							<td>
-								\(\Delta_{\text{pa-fwd}}(K_{\text{saddle}})=0\)
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<h3>Delta-Strike Mapping</h3>
-				<p>
-					While it is common in equity markets to quote
-					strike-volatility or strike-price pairs, this is usually not
-					the case in FX markets. It is standard to receive implied
-					volatility-delta pairs from market data providers. The
-					investor is then tasked with transforming implied
-					volatility-delta to strike-price pairs respecting the delta
-					and ATM conventions. This section will outline the
-					algorithms which can be used to that end.
-				</p>
-				<p>
-					It is straightforward to compute strikes from unadjusted
-					deltas. However, since explicit strike expressions in
-					premium-adjusted deltas are not available, we must solve for
-					the strikes numerically. For a given spot delta, $\Delta_s$,
-					and corresponding volatility, $\sigma$, the strike can be
-					retrieved explicitly.
-					$$K=f\exp\left(-\phi\mathcal{N}^{-1}\left(\phi
-					e^{r_f\tau}\Delta_s\right)\sigma\sqrt{\tau}+\frac{1}{2}\sigma^2\tau\right).$$
-					The equivalent forward delta defintion is given below.
-					$$K=f\exp\left(-\phi\mathcal{N}^{-1}\left(\phi\Delta_f\right)\sigma\sqrt{\tau}+\frac{1}{2}\sigma^2\tau\right).$$
-				</p>
-				<p>
-					For a premium-adjusted forward delta, we obtain the
-					following equation.
-					$$\Delta_{f,pa}(K,\sigma,\phi)=\phi\frac{K}{f}\mathcal{N}(\phi
-					d_-)=\phi\frac{K}{f}\left(\phi\frac{\log\left(\frac{f}{K}-\frac{1}{2}\sigma^2\tau\right)}{\sigma\sqrt{\tau}}\right).$$
-					This cannot be solved for strike in closed-form, it must be
-					solved using a numerical procedure. This is straightforward
-					for put delta because the put delta is monotone in strike.
-					This means we can employ a simple procedure such as the
-					bisection or secant method. This is not the case for the
-					call delta. Different schemes can be employed here such as
-					Brent's root searcher, Newton-Raphson method, Nelder-Mead
-					simplex, etc.
-				</p>
-				<h2>Implied Volatility Smiles and Surfaces</h2>
-				<p>
-					To reiterate, in FX markets it is common to use the delta to
-					measure the degree of moneyness. Consequently, volatilities
-					are assigned to deltas (for any delta type), rather than
-					strikes. For example, it is common to quote the volatility
-					for an option which has a premium-adjusted delta of 0.25.
-				</p>
-				<p>
-					The curve constructed by interpolating through various
-					volatility-delta pairs is called the volatility smile. It is
-					called a smile because this curve exhibits skewness and
-					curvature resembling that of a smile. In FX markets, the
-					volatility smile is given implicitly as a set of
-					restrictions implied by market instruments. This is
-					FX-specific, as other markets quote volatility versus strike
-					directly. A consequence is that one has to employ a
-					calibration procedure to construct a volatility versus delta
-					or volatility versus strike smile.
-				</p>
-				<p>
-					Finally, the volatility smile is not static. It varies with
-					maturity, leading to a volatility surface. The volatility
-					surface is a function of both moneyness (delta or strike)
-					and time to maturity.
-				</p>
-				<p>
-					The key part of construction is to build a curve such that
-					it matches the market quotes. The FX market uses three
-					volatility quotes for a given delta (typically 0.25 and
-					0.10). Simply, we aim to build a curve function
-					$\sigma:A\mapsto B$ that maps strikes to implied volatility
-					such that $\sigma(K_{\text{ATM}})=\sigma_{\text{ATM}}$,
-					$\sigma(K_{25-\text{RR}})=\sigma_{25-\text{RR}}$ and
-					$\sigma(K_{25-\text{BF}})=\sigma_{25-\text{BF}}$.
-				</p>
-				<ul>
-					<li>ATM volatility, $\sigma_{\text{ATM}}$.</li>
-					<li>
-						Risk reversal (RR), $\sigma_{25-\text{RR}}$: A risk
-						reveral is a strategy where you are long an
-						out-of-the-money (OTM) call and short an OTM put with
-						the same expiry and underlying currency pair.
-					</li>
-					<li>
-						Butterfly (BF), $\sigma_{25-\text{BF}}$: A call
-						butterfly (call fly) is a strategy where you are long a
-						low-strike call, short two middle-strike calls and long
-						a high-strike call. All options have the same expiry,
-						strikes are spaced evenly and share the same underlying
-						currency pair.
-					</li>
-				</ul>
-				<p>
-					Risk reversals are used to measure the skewness of the
-					smile, the extra volatility added to the 0.25 delta put
-					volatility compared to the 0.25 delta call volatility. Call
-					flies are used to measure the curvature of the smile, the
-					extra volatility added to the 0.25 delta put and call
-					volatility compared to the ATM volatility. Often, a
-					simplified formula is used to easily calculate the 0.25
-					delta volatilities given these quotes. Let
-					$\sigma_{25-\text{C}}$ be the volatility of a call with
-					delta of 0.25 and $\sigma_{25-\text{P}}$ be the volatility
-					of a put with delta of 0.25. Then,
-					$$\sigma_{25-\text{C}}=\sigma_{\text{ATM}}+\frac{1}{2}\sigma_{25-\text{RR}}+\sigma_{25-\text{BF}},$$
-					$$\sigma_{25-\text{P}}=\sigma_{\text{ATM}}-\frac{1}{2}\sigma_{25-\text{RR}}+\sigma_{25-\text{BF}}.$$
-				</p>
-				<h3>Volatility Smile Calibration</h3>
-				<p>
-					The last step in this process is now to employ some
-					volatility smile calibration technique. This could be a
-					polynomial interpolation, local volatility model such as
-					Dupire's, stochastic volatility model such as SABR, and many
-					more. We will touch on this in future posts!
-				</p>
-			</article>
+			<div class="page">
+				<aside class="toc" aria-label="Chapters">
+					<div class="toc-card">
+						<div class="toc-title">Chapters</div>
+						<nav class="toc-links">
+							<a href="#spot-market">FX Spot Market</a>
+							<a href="#forward-contract">FX Forward Contract</a>
+							<a href="#vanilla-options"
+								>FX Vanilla Option Contracts</a
+							>
+							<a href="#delta-conventions">Delta Conventions</a>
+							<a href="#atm-conventions"
+								>At-The-Money Conventions</a
+							>
+							<a href="#volatility-smiles"
+								>Implied Volatility Smiles and Surfaces</a
+							>
+						</nav>
+					</div>
+				</aside>
+				<article class="article">
+					<h1>Foreign Exchange Options Market Conventions</h1>
+					<p class="meta">2025-11-13</p>
+					<h2 id="spot-market">FX Spot Market</h2>
+					<p>
+						Currency pairs are commonly quoted using ISO codes in
+						the format FORDOM, where FOR is the foreign currency and
+						DOM is the domestic currency. For example, in the EURUSD
+						pair, EUR is the foreign currency and USD is the
+						domestic currency. The FX spot rate, $x$, for the
+						currency pair FORDOM represents the number of units of
+						DOM is needed to buy one unit of FOR. The domestic
+						currency is also referred to as the numeraire currency.
+					</p>
+					<h2 id="forward-contract">FX Forward Contract</h2>
+					<p>
+						A forward contract allows an investor to exchange
+						currencies at a time, $T$, at a pre-specified outright
+						forward rate, $f$. The outright forward rate is related
+						to the spot rate by interest-rate parity,
+						$$f=\mathbb{E}[S_T]=xe^{(r_d-r_f)\tau},$$ where $r_d$ is
+						the domestic interest-rate, $r_f$ is the foreign
+						interest-rate and $\tau:=(T-t)$ is the time to maturity.
+					</p>
+					<p>
+						At inception, an outright forward contract has a value
+						of zero. Thereafter, when markets move, the value of the
+						forward contract is no longer zero but is worth the
+						discounted difference between the expected exchange
+						rate, $f$, and pre-specified outright forward rate, $K$.
+						$$e^{-r_d\tau}(f-K)=xe^{-r_f\tau}-Ke^{-r_d\tau}.$$
+					</p>
+					<p>
+						It is also worth mentioning that FX forward contracts
+						are oftened quoted as FX forward points. This is the
+						difference between the spot exchange rate and forward
+						outright point as basis points.
+						$$\tilde{f}=10000\times(f-x).$$
+					</p>
+					<h2 id="vanilla-options">FX Vanilla Option Contracts</h2>
+					<p>
+						An option contract is simply (not so simple to be
+						honest) an extension of a forward contract. It provides
+						the investor the right, but not the obligation, to
+						exchange currencies at a time $T$ at a pre-specified
+						rate known as the strike, $K$. The key part here is the
+						additional optionality as in the name. In FX markets,
+						these contracts are usually physically settled. This
+						means that at expiry, the owner of a vanilla FORDOM call
+						(put) option receives $N$ units of FOR and pays $NK$
+						DOM. Intuitively, the additional optionality comes at a
+						cost. This cost is what traders and market makers want
+						to be able to gauge accurately and is the ultimate
+						motivation for everything we discuss in option theory.
+					</p>
+					<p>
+						The value of a vanilla option can be computed with the
+						standard Black-Scholes model.
+						$$V(x,K,T,t,\sigma,r_d,r_f,\phi)=\phi
+						e^{-r_d\tau}[f\mathcal{N}(\phi d_+)-K\mathcal{N}(\phi
+						d_-)].$$ The following terms have been abbreviated for
+						simplicity:
+					</p>
+					<ul>
+						<li>$\tau:=T-t$.</li>
+						<li>$f:=\mathbb{E}[S_T]=xe^{(r_d-r_f)\tau}$.</li>
+						<li>
+							$\theta_\pm:=\frac{r_d-r_f}{\sigma}\pm\frac{\sigma}{2}.$
+						</li>
+						<li>
+							$d_\pm:=\frac{\log(\frac{x}{K})+\sigma\theta_\pm\tau}{\sigma\sqrt{\tau}}=\frac{\log(\frac{f}{k})\pm\frac{\sigma^2}{2}\tau}{\sigma\sqrt{\tau}}.$
+						</li>
+						<li>
+							$n(x):=\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}=n(-x).$
+						</li>
+						<li>
+							$\mathcal{N}(x):=\int_{-\infty}^{x}n(t)\text{d}t=1-\mathcal{N}(-x).$
+						</li>
+					</ul>
+					<h2 id="delta-conventions">Delta Conventions</h2>
+					<p>
+						The delta of an option is the percentage of the FOR
+						notional one must buy when selling the option to hold a
+						hedged position. For instance, a delta of 0.35 (35%)
+						indicates buying 35% of the FOR notional to delta-hedge
+						a short option.
+					</p>
+					<p>
+						In FX markets, we distinguish spot delta, used for a
+						hedge in the spot market, from forward delta, used for a
+						hedge in the forward market. Furthermore, the standard
+						delta is a quantity in percent of foreign currency.
+						Suppose the value of an option with a notional of
+						1,000,000 FOR was calculated as 73,669 DOM. Assuming a
+						short position with a delta of 40% means, that buying
+						400,000 FOR is necessary to hedge. However the final
+						hedge quantity will be 326,331 FOR which is the delta
+						quantity reduced by the received premium in FOR.
+						Consequently, the premium-adjusted delta would be
+						32.63%.
+					</p>
+					<h3>Unadjusted Deltas</h3>
+					<ul>
+						<li>
+							Spot delta: The sensitivity of a vanilla option's
+							premium with respect to the spot rate, $x$, is given
+							as, $$\Delta_s(K,\sigma,\phi):=\frac{\partial
+							V}{\partial x}=\phi e^{-r_f\tau}\mathcal{N}(\phi
+							d_+).$$
+						</li>
+						<li>
+							Forward delta: An alternative solution to a spot
+							hedge is a hedge with a forward contract. The
+							sensitivity of a vanilla option's premium with
+							respect to the outright forward rate, $f$, is given
+							as, $$\Delta_f(K,\sigma,\phi):=\frac{\partial
+							V}{\partial f}=\phi\mathcal{N}(\phi d_+).$$
+						</li>
+					</ul>
+					<h3>Premium-Adjusted Deltas</h3>
+					<ul>
+						<li>
+							Premium-adjusted spot delta: This takes care of the
+							correction induced by payment of the premium in FOR
+							currency, which is the amount by which the delta
+							hedge in foreign currency has to be corrected. The
+							delta can be represented as,
+							$$\Delta_{s,pa}:=\Delta_s-\frac{V}{x}=\phi
+							e^{-r_f\tau}\frac{K}{f}\mathcal{N}(\phi d_-).$$
+						</li>
+						<li>
+							Premum-adjusted forward Delta: As in the case of a
+							spot delta, a premium payment in foreign currency
+							leads to an adjustment of the forward delta. The
+							resulting hedge quantity is given by,
+							$$\Delta_{f,pa}(K,\sigma,\phi):=\Delta_f-\frac{V}{f}=\phi
+							e^{-r_f\tau}\frac{K}{f}\mathcal{N}(\phi d_-).$$
+						</li>
+					</ul>
+					<p>
+						Sadly, which deltas are used in practice varies
+						depending on the currency pair and cannot be attributed
+						to a rule-based system.
+					</p>
+					<h2 id="atm-conventions">At-The-Money Conventions</h2>
+					<p>
+						As you are probably figuring out for yourself, nothing
+						is straightforward in the options market. There tends to
+						be two prominent ways of defining the at-the-money (ATM)
+						strike.
+					</p>
+					<ul>
+						<li>
+							Forward ATM: This takes into account that the
+							risk-neutral expectation of the future spot is the
+							forward price, which is a natural way of specifying
+							the middle. It is very common for currency pairs
+							with a large interest rate differential (emerging
+							markets) or long maturity (typically 10Y onwards).
+						</li>
+						<li>
+							Delta-neutral saddle (DNS): This ensures that a
+							straddle (long call and long put with the same
+							strike) has zero combined delta. The strike that
+							satisfies this is the ATM strike. This convention is
+							considered as the default notion for short-dated FX
+							options (up to 1Y typically).
+						</li>
+					</ul>
+					<p>
+						The table below summarises the different delta
+						conventions as well as ATM conventions.
+					</p>
+					<table>
+						<thead>
+							<tr>
+								<th rowspan="2">Delta convention</th>
+								<th colspan="2">Forward ATM</th>
+								<th colspan="2">Delta-neutral saddle</th>
+							</tr>
+							<tr>
+								<th>Strike</th>
+								<th>Delta</th>
+								<th>Strike</th>
+								<th>Delta</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Spot delta</td>
+								<td>$fe^{\frac{1}{2}\sigma^2\tau}$</td>
+								<td>$f$</td>
+								<td>$\frac{1}{2}\phi e^{-r_f\tau}$</td>
+								<td>
+									\(\Delta_{\text{spot}}(K_{\text{saddle}})=0\)
+								</td>
+							</tr>
+							<tr>
+								<td>Forward delta</td>
+								<td>$fe^{\frac{1}{2}\sigma^2\tau}$</td>
+								<td>$f$</td>
+								<td>$\frac{1}{2}\phi$</td>
+								<td>
+									\(\Delta_{\text{fwd}}(K_{\text{saddle}})=0\)
+								</td>
+							</tr>
+							<tr>
+								<td>Premium-adjusted spot delta</td>
+								<td>$fe^{-\frac{1}{2}\sigma^2\tau}$</td>
+								<td>$f$</td>
+								<td>
+									$\frac{1}{2}\phi
+									e^{-r_f\tau}e^{\frac{1}{2}\sigma^2\tau}$
+								</td>
+								<td>
+									\(\Delta_{\text{pa-spot}}(K_{\text{saddle}})=0\)
+								</td>
+							</tr>
+							<tr>
+								<td>Premium-adjusted forward delta</td>
+								<td>$fe^{-\frac{1}{2}\sigma^2\tau}$</td>
+								<td>$f$</td>
+								<td>
+									$\frac{1}{2}e^{\frac{1}{2}\sigma^2\tau}$
+								</td>
+								<td>
+									\(\Delta_{\text{pa-fwd}}(K_{\text{saddle}})=0\)
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<h3>Delta-Strike Mapping</h3>
+					<p>
+						While it is common in equity markets to quote
+						strike-volatility or strike-price pairs, this is usually
+						not the case in FX markets. It is standard to receive
+						implied volatility-delta pairs from market data
+						providers. The investor is then tasked with transforming
+						implied volatility-delta to strike-price pairs
+						respecting the delta and ATM conventions. This section
+						will outline the algorithms which can be used to that
+						end.
+					</p>
+					<p>
+						It is straightforward to compute strikes from unadjusted
+						deltas. However, since explicit strike expressions in
+						premium-adjusted deltas are not available, we must solve
+						for the strikes numerically. For a given spot delta,
+						$\Delta_s$, and corresponding volatility, $\sigma$, the
+						strike can be retrieved explicitly.
+						$$K=f\exp\left(-\phi\mathcal{N}^{-1}\left(\phi
+						e^{r_f\tau}\Delta_s\right)\sigma\sqrt{\tau}+\frac{1}{2}\sigma^2\tau\right).$$
+						The equivalent forward delta defintion is given below.
+						$$K=f\exp\left(-\phi\mathcal{N}^{-1}\left(\phi\Delta_f\right)\sigma\sqrt{\tau}+\frac{1}{2}\sigma^2\tau\right).$$
+					</p>
+					<p>
+						For a premium-adjusted forward delta, we obtain the
+						following equation.
+						$$\Delta_{f,pa}(K,\sigma,\phi)=\phi\frac{K}{f}\mathcal{N}(\phi
+						d_-)=\phi\frac{K}{f}\left(\phi\frac{\log\left(\frac{f}{K}-\frac{1}{2}\sigma^2\tau\right)}{\sigma\sqrt{\tau}}\right).$$
+						This cannot be solved for strike in closed-form, it must
+						be solved using a numerical procedure. This is
+						straightforward for put delta because the put delta is
+						monotone in strike. This means we can employ a simple
+						procedure such as the bisection or secant method. This
+						is not the case for the call delta. Different schemes
+						can be employed here such as Brent's root searcher,
+						Newton-Raphson method, Nelder-Mead simplex, etc.
+					</p>
+					<h2 id="volatility-smiles">
+						Implied Volatility Smiles and Surfaces
+					</h2>
+					<p>
+						To reiterate, in FX markets it is common to use the
+						delta to measure the degree of moneyness. Consequently,
+						volatilities are assigned to deltas (for any delta
+						type), rather than strikes. For example, it is common to
+						quote the volatility for an option which has a
+						premium-adjusted delta of 0.25.
+					</p>
+					<p>
+						The curve constructed by interpolating through various
+						volatility-delta pairs is called the volatility smile.
+						It is called a smile because this curve exhibits
+						skewness and curvature resembling that of a smile. In FX
+						markets, the volatility smile is given implicitly as a
+						set of restrictions implied by market instruments. This
+						is FX-specific, as other markets quote volatility versus
+						strike directly. A consequence is that one has to employ
+						a calibration procedure to construct a volatility versus
+						delta or volatility versus strike smile.
+					</p>
+					<p>
+						Finally, the volatility smile is not static. It varies
+						with maturity, leading to a volatility surface. The
+						volatility surface is a function of both moneyness
+						(delta or strike) and time to maturity.
+					</p>
+					<p>
+						The key part of construction is to build a curve such
+						that it matches the market quotes. The FX market uses
+						three volatility quotes for a given delta (typically
+						0.25 and 0.10). Simply, we aim to build a curve function
+						$\sigma:A\mapsto B$ that maps strikes to implied
+						volatility such that
+						$\sigma(K_{\text{ATM}})=\sigma_{\text{ATM}}$,
+						$\sigma(K_{25-\text{RR}})=\sigma_{25-\text{RR}}$ and
+						$\sigma(K_{25-\text{BF}})=\sigma_{25-\text{BF}}$.
+					</p>
+					<ul>
+						<li>ATM volatility, $\sigma_{\text{ATM}}$.</li>
+						<li>
+							Risk reversal (RR), $\sigma_{25-\text{RR}}$: A risk
+							reveral is a strategy where you are long an
+							out-of-the-money (OTM) call and short an OTM put
+							with the same expiry and underlying currency pair.
+						</li>
+						<li>
+							Butterfly (BF), $\sigma_{25-\text{BF}}$: A call
+							butterfly (call fly) is a strategy where you are
+							long a low-strike call, short two middle-strike
+							calls and long a high-strike call. All options have
+							the same expiry, strikes are spaced evenly and share
+							the same underlying currency pair.
+						</li>
+					</ul>
+					<p>
+						Risk reversals are used to measure the skewness of the
+						smile, the extra volatility added to the 0.25 delta put
+						volatility compared to the 0.25 delta call volatility.
+						Call flies are used to measure the curvature of the
+						smile, the extra volatility added to the 0.25 delta put
+						and call volatility compared to the ATM volatility.
+						Often, a simplified formula is used to easily calculate
+						the 0.25 delta volatilities given these quotes. Let
+						$\sigma_{25-\text{C}}$ be the volatility of a call with
+						delta of 0.25 and $\sigma_{25-\text{P}}$ be the
+						volatility of a put with delta of 0.25. Then,
+						$$\sigma_{25-\text{C}}=\sigma_{\text{ATM}}+\frac{1}{2}\sigma_{25-\text{RR}}+\sigma_{25-\text{BF}},$$
+						$$\sigma_{25-\text{P}}=\sigma_{\text{ATM}}-\frac{1}{2}\sigma_{25-\text{RR}}+\sigma_{25-\text{BF}}.$$
+					</p>
+					<h3>Volatility Smile Calibration</h3>
+					<p>
+						The last step in this process is now to employ some
+						volatility smile calibration technique. This could be a
+						polynomial interpolation, local volatility model such as
+						Dupire's, stochastic volatility model such as SABR, and
+						many more. We will touch on this in future posts!
+					</p>
+				</article>
+			</div>
 		</main>
 
 		<script>
