@@ -15,6 +15,9 @@
 	--code-bg: rgba(79, 142, 219, 0.08);
 	--code-border: rgba(28, 42, 47, 0.14);
 
+	--content-width: 1040px;
+	--content-pad: 16px;
+
 	--table-head-bg: rgba(79, 142, 219, 0.12);
 	--table-row-alt: rgba(28, 42, 47, 0.03);
 
@@ -51,6 +54,9 @@
 
 	--code-bg: #0c060e;
 	--code-border: rgba(255, 241, 246, 0.14);
+
+	--content-width: 1040px;
+	--content-pad: 16px;
 
 	--table-head-bg: rgba(255, 61, 61, 0.14);
 	--table-row-alt: rgba(255, 241, 246, 0.05);
@@ -188,9 +194,9 @@ a:hover {
 
 .site-header,
 .site-footer {
-	max-width: 900px;
+	max-width: var(--content-width);
 	margin: 0 auto;
-	padding: 20px 16px;
+	padding: 20px var(--content-pad);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -214,9 +220,9 @@ a:hover {
 }
 
 main {
-	max-width: 900px;
+	max-width: var(--content-width);
 	margin: 0 auto;
-	padding: 24px 16px;
+	padding: 24px var(--content-pad);
 }
 
 .post-list {
