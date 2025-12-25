@@ -319,20 +319,56 @@ hr {
 	transform: scale(0.95);
 }
 
-#theme-toggle .sun {
-	display: inline;
+#theme-toggle .icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
 }
 
-#theme-toggle .moon {
+#theme-toggle svg {
+	width: 18px;
+	height: 18px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.75;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	display: block;
+}
+
+#theme-toggle .icon-moon svg {
+	fill: currentColor;
+	stroke: none;
+}
+
+#theme-toggle .icon-moon {
 	display: none;
 }
 
-:root.dark #theme-toggle .sun {
+:root.dark #theme-toggle .icon-sun {
 	display: none;
 }
 
-:root.dark #theme-toggle .moon {
-	display: inline;
+:root.dark #theme-toggle .icon-moon {
+	display: inline-flex;
+}
+
+#theme-toggle .icon-sun {
+	color: #f59e0b;
+}
+
+#theme-toggle .icon-moon {
+	color: #7c96b8;
+}
+
+:root.dark #theme-toggle .icon-sun {
+	color: #facc15;
+}
+
+:root.dark #theme-toggle .icon-moon {
+	color: #a7b8de;
 }
 
 pre {
@@ -516,36 +552,47 @@ blockquote {
 	background: var(--topbar);
 	opacity: 0.9;
 }
+
 table {
-  width: 100%;
-  margin: 0 auto;
-  border-collapse: collapse;
-  background: var(--card);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+	width: 100%;
+	margin: 0 auto;
+	border-collapse: collapse;
+	background: var(--card);
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
+
 thead th {
-  background: color-mix(in oklab, var(--card) 85%, black 10%);
-  color: var(--text);
-  text-align: center;
-  padding: 10px 12px;
-  font-weight: 600;
+	background: color-mix(in oklab, var(--card) 85%, black 10%);
+	color: var(--text);
+	text-align: center;
+	padding: 10px 12px;
+	font-weight: 600;
 }
-tbody td, tbody th {
-  padding: 10px 12px;
-  border-top: 1px solid color-mix(in oklab, var(--card) 65%, black 25%);
-  text-align: center;
+
+tbody td,
+tbody th {
+	padding: 10px 12px;
+	border-top: 1px solid color-mix(in oklab, var(--card) 65%, black 25%);
+	text-align: center;
 }
+
 tbody tr:nth-child(odd) {
-  background: color-mix(in oklab, var(--card) 92%, black 4%);
+	background: color-mix(in oklab, var(--card) 92%, black 4%);
 }
+
 :root.dark thead th {
-  background: color-mix(in oklab, var(--card) 75%, white 6%);
+	background: color-mix(in oklab, var(--card) 75%, white 6%);
 }
-:root.dark tbody td, :root.dark tbody th {
-  border-top-color: color-mix(in oklab, var(--card) 50%, white 14%);
+
+:root.dark tbody td,
+:root.dark tbody th {
+	border-top-color: color-mix(in oklab, var(--card) 50%, white 14%);
 }
-td code, td .katex, td .math {
-  white-space: nowrap;
+
+td code,
+td .katex,
+td .math {
+	white-space: nowrap;
 }
