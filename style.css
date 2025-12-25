@@ -15,7 +15,7 @@
 	--code-bg: rgba(79, 142, 219, 0.08);
 	--code-border: rgba(28, 42, 47, 0.14);
 
-	--content-width: 1040px;
+	--content-width: 1240px;
 	--content-pad: 16px;
 
 	--table-head-bg: rgba(79, 142, 219, 0.12);
@@ -55,7 +55,7 @@
 	--code-bg: #0c060e;
 	--code-border: rgba(255, 241, 246, 0.14);
 
-	--content-width: 1040px;
+	--content-width: 1240px;
 	--content-pad: 16px;
 
 	--table-head-bg: rgba(255, 61, 61, 0.14);
@@ -84,6 +84,10 @@
 html,
 body {
 	height: 100%;
+}
+
+html {
+	scroll-behavior: smooth;
 }
 
 body {
@@ -247,6 +251,56 @@ main {
 	font-size: 14px;
 }
 
+.page {
+	display: grid;
+	grid-template-columns: 240px 1fr;
+	gap: 18px;
+	align-items: start;
+}
+
+.toc {
+	position: sticky;
+	top: 18px;
+	height: calc(100vh - 36px);
+}
+
+.toc-card {
+	background: var(--card);
+	border: 1px solid var(--card-border);
+	border-radius: 14px;
+	box-shadow: var(--shadow);
+	padding: 12px 12px;
+}
+
+.toc-title {
+	font-weight: 650;
+	letter-spacing: -0.01em;
+	margin-bottom: 8px;
+}
+
+.toc-links {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	max-height: calc(100vh - 120px);
+	overflow: auto;
+	padding-right: 4px;
+}
+
+.toc-links a {
+	color: var(--muted);
+	border-bottom: none;
+	padding: 6px 8px;
+	border-radius: 10px;
+	transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.toc-links a:hover {
+	background: color-mix(in srgb, var(--card) 82%, var(--accent2) 18%);
+	color: var(--text);
+	opacity: 1;
+}
+
 .article {
 	position: relative;
 	background: var(--card);
@@ -275,6 +329,7 @@ main {
 .article h2,
 .article h3 {
 	letter-spacing: -0.02em;
+	scroll-margin-top: 90px;
 }
 
 .article h2 {
@@ -288,6 +343,48 @@ main {
 	font-size: 14px;
 	margin-top: -6px;
 	margin-bottom: 16px;
+}
+
+.page {
+	display: grid;
+	grid-template-columns: 240px 1fr;
+	gap: 20px;
+	align-items: start;
+}
+
+.toc {
+	position: sticky;
+	top: 90px;
+	align-self: start;
+}
+
+.toc-card {
+	background: var(--card);
+	border: 1px solid var(--card-border);
+	border-radius: 14px;
+	box-shadow: var(--shadow);
+	padding: 12px;
+}
+
+.toc-title {
+	font-weight: 650;
+	margin-bottom: 8px;
+}
+
+.toc-links {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+@media (max-width: 860px) {
+	.page {
+		grid-template-columns: 1fr;
+	}
+	.toc {
+		position: relative;
+		top: auto;
+	}
 }
 
 .back {
@@ -406,36 +503,48 @@ pre code {
 
 table {
 	width: 100%;
-	border-collapse: separate;
-	border-spacing: 0;
 	margin: 16px 0;
-	border: 1px solid var(--card-border);
+	border-collapse: collapse;
+	background: var(--card);
 	border-radius: 12px;
 	overflow: hidden;
+	border: 1px solid var(--card-border);
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 thead th {
-	background: var(--table-head-bg);
-}
-
-th,
-td {
-	padding: 10px 12px;
-	border-bottom: 1px solid var(--card-border);
-	vertical-align: top;
+	background: color-mix(in oklab, var(--card) 85%, black 10%);
+	color: var(--text);
 	text-align: center;
-}
-
-th {
+	padding: 10px 12px;
 	font-weight: 650;
 }
 
-tbody tr:nth-child(even) td {
-	background: var(--table-row-alt);
+tbody td,
+tbody th {
+	padding: 10px 12px;
+	border-top: 1px solid color-mix(in oklab, var(--card) 65%, black 25%);
+	text-align: center;
+	vertical-align: top;
 }
 
-tbody tr:last-child td {
-	border-bottom: none;
+tbody tr:nth-child(odd) {
+	background: color-mix(in oklab, var(--card) 92%, black 4%);
+}
+
+:root.dark thead th {
+	background: color-mix(in oklab, var(--card) 75%, white 6%);
+}
+
+:root.dark tbody td,
+:root.dark tbody th {
+	border-top-color: color-mix(in oklab, var(--card) 50%, white 14%);
+}
+
+td code,
+td .katex,
+td .math {
+	white-space: nowrap;
 }
 
 ul,
@@ -506,6 +615,17 @@ blockquote {
 	color: var(--text);
 }
 
+@media (max-width: 980px) {
+	.page {
+		grid-template-columns: 1fr;
+	}
+	.toc {
+		position: relative;
+		top: 0;
+		height: auto;
+	}
+}
+
 @media (max-width: 560px) {
 	.post-date {
 		float: none;
@@ -557,48 +677,4 @@ blockquote {
 	border-radius: 999px;
 	background: var(--topbar);
 	opacity: 0.9;
-}
-
-table {
-	width: 100%;
-	margin: 0 auto;
-	border-collapse: collapse;
-	background: var(--card);
-	border-radius: 12px;
-	overflow: hidden;
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-}
-
-thead th {
-	background: color-mix(in oklab, var(--card) 85%, black 10%);
-	color: var(--text);
-	text-align: center;
-	padding: 10px 12px;
-	font-weight: 600;
-}
-
-tbody td,
-tbody th {
-	padding: 10px 12px;
-	border-top: 1px solid color-mix(in oklab, var(--card) 65%, black 25%);
-	text-align: center;
-}
-
-tbody tr:nth-child(odd) {
-	background: color-mix(in oklab, var(--card) 92%, black 4%);
-}
-
-:root.dark thead th {
-	background: color-mix(in oklab, var(--card) 75%, white 6%);
-}
-
-:root.dark tbody td,
-:root.dark tbody th {
-	border-top-color: color-mix(in oklab, var(--card) 50%, white 14%);
-}
-
-td code,
-td .katex,
-td .math {
-	white-space: nowrap;
 }
