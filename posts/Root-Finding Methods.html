@@ -204,15 +204,15 @@
 						inverse is approximately directly. In addition, $f$ no
 						longer needs to be differentiable but continuous and
 						non-constant within a neighbourhood of the root. The
-						Secant method is a popular quasi-Newton method used to
+						secant method is a popular quasi-Newton method used to
 						solve for roots in one dimension. It stems from
 						approximating the derivative at $x_n$, $f'(x_n)$, by the
 						secant line through coordinates $(x_{n-1}, f(x_{n-1}))$
 						and $(x_n, f(x_n))$,
 						$$f'(x_n)=\frac{f(x_n)-f(x_{n-1})}{x_n-x_{n-1}}.$$
 						Substituting this into Newton's iterative scheme, one
-						obtains the Secant method. Formally, given that $f:[a,
-						b]\mapsto\mathbb{R}$ is continuous, the Secant iterative
+						obtains the secant method. Formally, given that $f:[a,
+						b]\mapsto\mathbb{R}$ is continuous, the secant iterative
 						scheme is given by,
 						$$x_{n+1}=x_n-f(x_n)\frac{f(x_n)-f(x_{n-1})}{x_n-x_{n-1}}.$$
 						This method requires two initial guesses, $x_0$ and
@@ -259,7 +259,7 @@ def secant(f, x0, x1, tol=1e-12, max_iter=10000):
 					<p>
 						Brent's method is a hybrid algorithm that combines the
 						robustness of the bisection method with the faster
-						convergence of the Secant method and inverse quadratic
+						convergence of the secant method and inverse quadratic
 						interpolation.
 					</p>
 					<p>
